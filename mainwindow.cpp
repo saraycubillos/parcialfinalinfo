@@ -87,8 +87,33 @@ void MainWindow::actualizar()
     //actualiza cada dato
 }
 
+int MainWindow::aleatorioposx()
+{
+    int num, c;
+        srand(time(NULL));
 
+        for(c = -600; c <= 600; c++)
+        {
+            num = -600 + rand() % (601 - (-600));
 
+        }
+
+        return num;
+}
+
+int MainWindow::aleatorioacely()
+{
+    int num, c;
+        srand(time(NULL));
+
+        for(c = 1; c <= 60; c++)
+        {
+            num = 1 + rand() % (60 - (1));
+
+        }
+
+        return num;
+}
 
 
 
@@ -126,24 +151,17 @@ void MainWindow::GUARDARDATOS(double posx, double posy,   double vx, double vy, 
 
 
 //evento al pulsar el botón de agregar planeta
-void MainWindow::on_pushButton_2_clicked()
+
+void MainWindow::on_pushButton_clicked()
 {
     timer->start(dt);
-    QString numS, posxS, posyS,mass,rad,vvx,vvy, text;
-    planetas=planetas+1;
-    posx= ui->spinBox->value();
-    posy= ui->spinBox_2->value();
-    vx= ui->spinBox_3->value();
-    vy= ui->spinBox_4->value();
-    masa= ui->spinBox_5->value();
-    radio= ui->spinBox_6->value();
+    int posicionx=aleatorioposx();
+    int aceleraciony=aleatorioacely();
+        lista.append(new Grafico(posicionx,600,aceleraciony,70,70));
 
-    LISTA.push_back(new Graficar(posx,posy,vx,vy, masa,radio));
-    scene->addItem(LISTA.back());
-    GUARDARDATOS( posx, posy,  vx,  vy,  masa,  radio, planetas);
-    for(int i=0;i<LISTA.size();i++)
-    {
-            LISTA.at(i)->Actualizar();
-            scene->addItem(LISTA.at(i));
-    }
+        for(int i=0;i<lista.size();i++)
+        {
+            lista.at(i)->Actualizar();
+            scene->addItem(lista.at(i));
+        }
 }
